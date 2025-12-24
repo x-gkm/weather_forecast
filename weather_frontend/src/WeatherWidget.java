@@ -3,12 +3,13 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.awt.Container;
 
 public abstract class WeatherWidget {
     HashMap<String, ImageIcon> icons;
     JLabel imageLabel;
     JLabel temperature;
-    JFrame frame;
+    Container container;
 
     public WeatherWidget() throws IOException {
         icons = loadIcons();
@@ -17,18 +18,18 @@ public abstract class WeatherWidget {
         temperature = new JLabel();
     }
 
-    public void addTo(JFrame f) {
-        frame = f;
-
-        frame.add(imageLabel);
-        frame.add(temperature);
+    public void addTo(Container c) {
+    	container = c;
+        container.add(imageLabel);
+        container.add(temperature);
     }
 
     public void remove() {
-        frame.remove(imageLabel);
-        frame.remove(temperature);
-
-        frame = null;
+    	if (container != null) {
+            container.remove(imageLabel);
+            container.remove(temperature);
+            container = null;
+        }
     }
 
     public abstract void setWeatherData(WeatherData data);

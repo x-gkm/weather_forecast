@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.awt.Container;
 
 public class SmallWeatherWidget extends WeatherWidget {
     JLabel time;
@@ -17,14 +18,16 @@ public class SmallWeatherWidget extends WeatherWidget {
     }
 
     @Override
-    public void addTo(JFrame f) {
-        super.addTo(f);
-        frame.add(time);
+    public void addTo(Container c) {
+    	super.addTo(c);
+        c.add(time);
     }
 
     @Override
     public void remove() {
-        frame.remove(time);
+    	if (container != null) {
+            container.remove(time);
+        }
         super.remove();
     }
 

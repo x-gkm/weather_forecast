@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.awt.Container;
 
 public class MainWeatherWidget extends WeatherWidget {
     JLabel feelsLike;
@@ -19,16 +20,18 @@ public class MainWeatherWidget extends WeatherWidget {
     }
 
     @Override
-    public void addTo(JFrame f) {
-        super.addTo(f);
-        frame.add(feelsLike);
-        frame.add(condition);
+    public void addTo(Container c) {
+    	super.addTo(c);
+        c.add(feelsLike);
+        c.add(condition);
     }
 
     @Override
     public void remove() {
-        frame.remove(feelsLike);
-        frame.remove(condition);
+    	if (container != null) {
+            container.remove(feelsLike);
+            container.remove(condition);
+        }
         super.remove();
     }
 
