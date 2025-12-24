@@ -13,6 +13,7 @@ public class Main {
         frame.setSize(500, 300);
         frame.setLayout(null);
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JTextField input = new JTextField();
