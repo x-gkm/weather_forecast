@@ -35,7 +35,9 @@ public class Main {
 
         currentWeather.addActionListener(e -> {
             try {
-                GeoInfo geoInfo = proxy.getGeoInfo(input.getText()).getFirst();
+                GeoInfo geoInfo = getGeoInfo(input, frame, proxy);
+                if (geoInfo == null) return;
+
                 WeatherData weatherData = proxy.getWeatherData(geoInfo.lat, geoInfo.lon);
                 weatherWidget.setWeatherData(weatherData);
             } catch (Exception ex) {
@@ -48,12 +50,14 @@ public class Main {
 
         forecast.addActionListener(e -> {
             try {
+                GeoInfo geoInfo = getGeoInfo(input, frame, proxy);
+                if (geoInfo == null) return;
+
                 JFrame forecastFrame = new JFrame("Weather forecast");
                 forecastFrame.setSize(980, 900);
                 forecastFrame.setLayout(null);
                 forecastFrame.setResizable(false);
 
-                GeoInfo geoInfo = proxy.getGeoInfo(input.getText()).getFirst();
                 ArrayList<ArrayList<WeatherData>> grouped = WeatherData.groupByDay(proxy.getForecast(geoInfo.lat, geoInfo.lon));
 
                 for (int i = 0; i < grouped.size(); i++) {
@@ -78,6 +82,29 @@ public class Main {
         });
 
         frame.setVisible(true);
+    }
+
+    private static GeoInfo getGeoInfo(JTextField input, JFrame frame, WeatherProxy proxy) throws IOException {
+        String city = input.getText().trim();
+
+        if (city.isEmpty()) {
+            JOptionPane.showMessageDialog(frame,
+                    "Please enter a city name!",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+
+        ArrayList<GeoInfo> geoList = proxy.getGeoInfo(city);
+
+        if (geoList.isEmpty()) {
+            JOptionPane.showMessageDialog(frame,
+                    "City not found!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return geoList.getFirst();
     }
 
     private static String dayOfWeek(Date date) {
