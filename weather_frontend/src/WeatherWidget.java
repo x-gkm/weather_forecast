@@ -37,12 +37,19 @@ public abstract class WeatherWidget {
     private static HashMap<String, ImageIcon> loadIcons() throws IOException {
         String[] names = new String[]{
                 "sunny",
+                "night_clear",
                 "clouds",
                 "mist",
+                "night_mist",
                 "partly_cloudy",
                 "rain",
+                "night_rainy",
                 "snow",
+                "night_snow",
                 "thunderstorm",
+                "night_thunderstorm",
+                "night_cloudy",
+                "heavy_rain",
         };
 
         HashMap<String, ImageIcon> result = new HashMap<>();
