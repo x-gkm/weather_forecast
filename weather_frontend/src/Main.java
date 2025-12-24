@@ -39,7 +39,10 @@ public class Main {
                 WeatherData weatherData = proxy.getWeatherData(geoInfo.lat, geoInfo.lon);
                 weatherWidget.setWeatherData(weatherData);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(frame,
+                        "An error occurred while fetching data",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -67,7 +70,10 @@ public class Main {
 
                 forecastFrame.setVisible(true);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(frame,
+                        "An error occurred while fetching data",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
 
