@@ -28,8 +28,22 @@ public class Main {
         forecast.setBounds(380, 10, 100, 30);
         frame.add(forecast);
 
-        WeatherWidget weatherWidget = new MainWeatherWidget(10, 40);
-        weatherWidget.addTo(frame);
+        JLabel todayLabel = new JLabel("TODAY");
+        todayLabel.setBounds(90, 45, 100, 20);
+        todayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        todayLabel.setVisible(false); 
+        frame.add(todayLabel);
+        
+        JLabel tomorrowLabel = new JLabel("TOMORROW");
+        tomorrowLabel.setBounds(330, 45, 100, 20);
+        tomorrowLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        tomorrowLabel.setVisible(false);
+        frame.add(tomorrowLabel);
+        
+        WeatherWidget todayWidget = new MainWeatherWidget(10, 70);
+        todayWidget.addTo(frame);
+        WeatherWidget tomorrowWidget = new MainWeatherWidget(250, 70);
+        tomorrowWidget.addTo(frame);
 
         WeatherProxy proxy = new WeatherProxy();
 
@@ -38,8 +52,18 @@ public class Main {
                 GeoInfo geoInfo = getGeoInfo(input, frame, proxy);
                 if (geoInfo == null) return;
 
-                WeatherData weatherData = proxy.getWeatherData(geoInfo.lat, geoInfo.lon);
-                weatherWidget.setWeatherData(weatherData);
+                ArrayList<WeatherData> forecastList =
+                        proxy.getForecast(geoInfo.lat, geoInfo.lon);
+                ArrayList<ArrayList<WeatherData>> grouped =
+                        WeatherData.groupByDay(forecastList);
+                WeatherData today = grouped.get(0).getFirst();
+                WeatherData tomorrow = grouped.get(1).getFirst();
+                
+                todayWidget.setWeatherData(today);
+                tomorrowWidget.setWeatherData(tomorrow);
+
+                todayLabel.setVisible(true);
+                tomorrowLabel.setVisible(true);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame,
                         "An error occurred while fetching data",
