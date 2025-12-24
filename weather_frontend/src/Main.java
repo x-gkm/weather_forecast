@@ -20,7 +20,7 @@ public class Main {
         input.setBounds(10, 10, 200, 30);
         frame.add(input);
 
-        JButton currentWeather = new JButton("Current weather");
+        JButton currentWeather = new JButton("Weather preview");
         currentWeather.setBounds(220, 10, 150, 30);
         frame.add(currentWeather);
 
