@@ -4,8 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+import java.awt.Dimension;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
@@ -27,7 +27,7 @@ public class Main {
         JButton forecast = new JButton("Forecast");
         forecast.setBounds(380, 10, 100, 30);
         frame.add(forecast);
-
+        
         JLabel todayLabel = new JLabel("TODAY");
         todayLabel.setBounds(90, 45, 100, 20);
         todayLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,7 +65,7 @@ public class Main {
                 todayLabel.setVisible(true);
                 tomorrowLabel.setVisible(true);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame,
+            	JOptionPane.showMessageDialog(frame,
                         "An error occurred while fetching data",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
@@ -78,27 +78,40 @@ public class Main {
                 if (geoInfo == null) return;
 
                 JFrame forecastFrame = new JFrame("Weather forecast");
-                forecastFrame.setSize(980, 900);
+                forecastFrame.setSize(980, 600);
                 forecastFrame.setLayout(null);
                 forecastFrame.setResizable(false);
-
+                forecastFrame.setLocationRelativeTo(null);
+                JPanel panel = new JPanel();
+                
+                panel.setLayout(null);
+                panel.setPreferredSize(new Dimension(950, 900));
+                               
+                JScrollPane scrollPane = new JScrollPane(panel);
+                scrollPane.setBounds(0, 0, 980, 600);
+                forecastFrame.add(scrollPane);
+                
+                JScrollBar vertical = scrollPane.getVerticalScrollBar();
+                vertical.setPreferredSize(new Dimension(20, 0));
+                JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
+                horizontal.setPreferredSize(new Dimension(0, 20));
                 ArrayList<ArrayList<WeatherData>> grouped = WeatherData.groupByDay(proxy.getForecast(geoInfo.lat, geoInfo.lon));
 
                 for (int i = 0; i < grouped.size(); i++) {
                     JLabel weekDay = new JLabel();
                     weekDay.setText(dayOfWeek(grouped.get(i).getFirst().time));
                     weekDay.setBounds(20, 107 + 130 * i, 80, 15);
-                    forecastFrame.add(weekDay);
+                    panel.add(weekDay);
                     for (int j = 0; j < grouped.get(i).size(); j++) {
                         WeatherWidget widget = new SmallWeatherWidget(100 * (j + 1),50 +  130 * i);
-                        widget.addTo(forecastFrame);
+                        widget.addTo(panel);
                         widget.setWeatherData(grouped.get(i).get(j));
                     }
                 }
 
                 forecastFrame.setVisible(true);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame,
+            	JOptionPane.showMessageDialog(frame,
                         "An error occurred while fetching data",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
