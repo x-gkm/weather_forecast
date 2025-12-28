@@ -9,7 +9,7 @@ public abstract class WeatherWidget {
     protected static final HashMap<String, ImageIcon> icons = loadIcons();
     protected final JLabel imageLabel;
     protected final JLabel temperature;
-    protected final Container container;
+    protected Container container;
 
     public WeatherWidget() throws IOException {
         imageLabel = new JLabel();
@@ -32,7 +32,7 @@ public abstract class WeatherWidget {
 
     public abstract void setWeatherData(WeatherData data);
 
-    private static HashMap<String, ImageIcon> loadIcons() throws IOException {
+    private static HashMap<String, ImageIcon> loadIcons() {
         String[] names = new String[]{
                 "sunny",
                 "night_clear",
@@ -52,7 +52,11 @@ public abstract class WeatherWidget {
 
         HashMap<String, ImageIcon> result = new HashMap<>();
         for (String name : names) {
-            result.put(name, new ImageIcon(ImageIO.read(new File("assets/" + name + ".png"))));
+            try {
+                result.put(name, new ImageIcon(ImageIO.read(new File("assets/" + name + ".png"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return result;
