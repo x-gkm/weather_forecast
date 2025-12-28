@@ -6,14 +6,12 @@ import java.util.HashMap;
 import java.awt.Container;
 
 public abstract class WeatherWidget {
-    private final HashMap<String, ImageIcon> icons;
+    private static final HashMap<String, ImageIcon> icons = loadIcons();
     private final JLabel imageLabel;
     private final JLabel temperature;
     private final Container container;
 
     public WeatherWidget() throws IOException {
-        icons = loadIcons();
-
         imageLabel = new JLabel();
         temperature = new JLabel();
     }
