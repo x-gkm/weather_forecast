@@ -28,10 +28,10 @@ public class WeatherProxy {
         int count = Integer.parseInt(reader.readLine());
         ArrayList<GeoInfo> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            GeoInfo geoInfo = new GeoInfo();
-            geoInfo.name = reader.readLine();
-            geoInfo.lat = Double.parseDouble(reader.readLine());
-            geoInfo.lon = Double.parseDouble(reader.readLine());
+            String name = reader.readLine();
+            double lat = Double.parseDouble(reader.readLine());
+            double lon = Double.parseDouble(reader.readLine());
+            GeoInfo geoInfo = new GeoInfo(name, lat, lon);
 
             list.add(geoInfo);
         }
