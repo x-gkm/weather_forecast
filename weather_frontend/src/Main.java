@@ -56,7 +56,7 @@ public class Main {
                         proxy.getForecast(geoInfo.lat, geoInfo.lon);
                 ArrayList<ArrayList<WeatherData>> grouped =
                         WeatherData.groupByDay(forecastList);
-                WeatherData today = grouped.get(0).getFirst();
+                WeatherData today = proxy.getWeatherDate(geoInfo.lat, geoInfo.lon);
                 WeatherData tomorrow = grouped.get(1).getFirst();
                 
                 todayWidget.setWeatherData(today);
