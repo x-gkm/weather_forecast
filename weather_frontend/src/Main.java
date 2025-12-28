@@ -23,7 +23,7 @@ public class Main {
         sbtuPanel.setBackground(new java.awt.Color(240, 240, 240));
         frame.add(sbtuPanel);
         
-        ImageIcon logoIcon = new ImageIcon("weather_fronted/assests/SBTÜ.png");
+        ImageIcon logoIcon = new ImageIcon(ImageIO.read(new File("assets/sbtu.png")));
         Image scaledImage = logoIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel logoLabel = new JLabel(new ImageIcon(scaledImage));
         logoLabel.setBounds(40, 100, 120, 120);
