@@ -6,15 +6,40 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.Dimension;
+import java.awt.Image;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
         JFrame frame = new JFrame("Weather forecast app");
-        frame.setSize(500, 300);
+        frame.setSize(700, 300);
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        
+        JPanel sbtuPanel = new JPanel();
+        sbtuPanel.setLayout(null);
+        sbtuPanel.setBounds(500, 0, 200, 300);
+        sbtuPanel.setBackground(new java.awt.Color(240, 240, 240));
+        frame.add(sbtuPanel);
+        
+        ImageIcon logoIcon = new ImageIcon("weather_fronted/assests/SBTÜ.png");
+        Image scaledImage = logoIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+        JLabel logoLabel = new JLabel(new ImageIcon(scaledImage));
+        logoLabel.setBounds(40, 100, 120, 120);
+        sbtuPanel.add(logoLabel);
+        
+        JLabel titleLabel = new JLabel("SBTÜ");
+        titleLabel.setBounds(20, 20, 160, 30);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+        sbtuPanel.add(titleLabel);
+
+        JLabel subTitleLabel = new JLabel("Weather Forecast");
+        subTitleLabel.setBounds(20, 55, 160, 20);
+        subTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        subTitleLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+        sbtuPanel.add(subTitleLabel);
 
         JTextField input = new JTextField();
         input.setBounds(10, 10, 200, 30);
@@ -42,8 +67,14 @@ public class Main {
         
         WeatherWidget todayWidget = new MainWeatherWidget(10, 70);
         todayWidget.addTo(frame);
+        JLabel todayCityLabel = new JLabel("");
+        todayCityLabel.setBounds(10, 205, 230, 20);
+        frame.add(todayCityLabel);
         WeatherWidget tomorrowWidget = new MainWeatherWidget(250, 70);
         tomorrowWidget.addTo(frame);
+        JLabel tomorrowCityLabel = new JLabel("");
+        tomorrowCityLabel.setBounds(250, 205, 230, 20);
+        frame.add(tomorrowCityLabel);
 
         WeatherProxy proxy = new WeatherProxy();
 
@@ -61,6 +92,10 @@ public class Main {
                 
                 todayWidget.setWeatherData(today);
                 tomorrowWidget.setWeatherData(tomorrow);
+                
+                String locationText = geoInfo.name;
+                todayCityLabel.setText(locationText);
+                tomorrowCityLabel.setText(locationText);
 
                 todayLabel.setVisible(true);
                 tomorrowLabel.setVisible(true);
