@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class WeatherProxy {
-    Process process;
-    BufferedWriter writer;
-    BufferedReader reader;
+    private final Process process;
+    private final BufferedWriter writer;
+    private final BufferedReader reader;
 
     public WeatherProxy() throws IOException {
         process = new ProcessBuilder("../weather_proxy/target/release/weather_proxy")

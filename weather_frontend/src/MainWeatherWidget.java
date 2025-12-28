@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.awt.Container;
 
 public class MainWeatherWidget extends WeatherWidget {
-    JLabel feelsLike;
-    JLabel condition;
+    private final JLabel feelsLike;
+    private final JLabel condition;
 
     public MainWeatherWidget(int x, int y) throws IOException {
         feelsLike = new JLabel();

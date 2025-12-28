@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.awt.Container;
 
 public class SmallWeatherWidget extends WeatherWidget {
-    JLabel time;
+    private final JLabel time;
 
     public SmallWeatherWidget(int x, int y) throws IOException {
         time = new JLabel();

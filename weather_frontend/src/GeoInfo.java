@@ -1,7 +1,7 @@
 public class GeoInfo {
-    public String name;
-    public double lat;
-    public double lon;
+    public final String name;
+    public final double lat;
+    public final double lon;
 
     public void displayInfo() {
         System.out.println("name: " + name);
