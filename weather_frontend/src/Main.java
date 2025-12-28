@@ -141,7 +141,9 @@ public class Main {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        return geoList.getFirst();
+        GeoInfo geoInfo = geoList.getFirst();
+        input.setText(geoInfo.name);
+        return geoInfo;
     }
 
     private static String dayOfWeek(Date date) {
